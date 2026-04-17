@@ -2,19 +2,50 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\UserSkillController;
+
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileShowController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
+
+Route::get('/profile/show', [ProfileShowController::class, 'index'])->name('profile.show');
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+    Route::get('/skills', [SkillController::class, 'index'])->name('skills.index');
+
+    Route::get('/skills/create', [SkillController::class, 'create'])->name('skills.create');
+
+    Route::post('/skills', [SkillController::class, 'store'])->name('skills.store');
+
+    Route::get('/skills/{skill}/edit', [SkillController::class, 'edit'])->name('skills.edit');
+
+    Route::put('/skills/{skill}', [SkillController::class, 'update'])->name('skills.update');
+
+    Route::delete('/skills/{skill}', [SkillController::class, 'destroy'])->name('skills.destroy');
+
+
+     Route::get('/my-skills', [UserSkillController::class, 'index'])->name('user.skills.index');
+
+    Route::post('/my-skills', [UserSkillController::class, 'store'])->name('user.skills.store');
+
+    Route::delete('/my-skills/{skill}', [UserSkillController::class, 'destroy'])->name('user.skills.destroy');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

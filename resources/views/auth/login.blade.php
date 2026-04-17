@@ -11,40 +11,7 @@
             <p class="text-gray-500 text-sm">Enter your credentials to access your workspace</p>
         </div>
 
-        <!-- Role -->
-        <div class="space-y-1.5">
-            <x-input-label for="role" :value="__('Role')" class="text-xs font-semibold text-gray-600 uppercase tracking-widest" />
-            <div class="relative">
-                <!-- left icon -->
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                    </svg>
-                </div>
-                <select
-                    id="role"
-                    name="role"
-                    required
-                    onchange="updateRoleHint(this.value)"
-                    class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent focus:bg-white transition-all duration-200 appearance-none cursor-pointer text-sm @error('role') border-red-400 ring-1 ring-red-400 @enderror"
-                >
-                    <option value="" disabled {{ old('role') ? '' : 'selected' }}>Select your role…</option>
-                    <option value="admin"  {{ old('role') == 'admin'  ? 'selected' : '' }}>👑  Admin</option>
-                    <option value="member" {{ old('role') == 'member' ? 'selected' : '' }}>👤  Member</option>
-                </select>
-                <!-- chevron -->
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </div>
-            </div>
-            <!-- Role hint -->
-            <div id="roleHint" class="hidden mt-1">
-                <span id="roleHintBadge" class="inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full"></span>
-            </div>
-            <x-input-error :messages="$errors->get('role')" class="mt-1 text-xs text-red-600" />
-        </div>
+        
 
         <!-- Email -->
         <div class="space-y-1.5">

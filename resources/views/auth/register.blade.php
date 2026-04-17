@@ -64,17 +64,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                 </div>
-                <select
-                    id="role"
-                    name="role"
-                    required
-                    onchange="updateRoleHint(this.value)"
-                    class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent focus:bg-white transition-all duration-200 appearance-none cursor-pointer text-sm @error('role') border-red-400 @enderror"
-                >
-                    <option value="" disabled {{ old('role') ? '' : 'selected' }}>Select your role…</option>
-                    <option value="admin"  {{ old('role') == 'admin'  ? 'selected' : '' }}>👑  Admin</option>
-                    <option value="member" {{ old('role') == 'member' ? 'selected' : '' }}>👤  Member</option>
-                </select>
+                
                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                     <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
