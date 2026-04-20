@@ -51,6 +51,8 @@ Route::get('/profile/show', [ProfileShowController::class, 'index'])->name('prof
 
 
     Route::resource('exchanges', ExchangeController::class);
+    Route::get('/matches', [MatchesController::class, 'index'])->name('matches.index');
+    Route::get('/matches/search', [MatchesController::class, 'search'])->name('matches.search');
     
 });
 
