@@ -1,0 +1,258 @@
+<x-app-layout>
+    <!-- Main Content -->
+    <main class="flex-1 bg-surface py-12 px-8 md:px-16 lg:px-24">
+        <header class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div class="max-w-xl">
+                <p class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">Daily Digest
+                </p>
+                <h1
+                    class="text-6xl md:text-7xl font-headline font-extrabold tracking-tighter text-on-surface leading-none">
+                    The Chronicle</h1>
+                <p class="mt-6 text-on-surface-variant leading-relaxed text-lg font-light italic">
+                    A curated archive of your latest interactions, knowledge exchanges, and community milestones.
+                </p>
+            </div>
+            <div class="flex gap-4">
+                <button
+                    class="px-6 py-2 rounded-full font-label text-xs font-bold uppercase border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container-low transition-colors">Mark
+                    all as read</button>
+            </div>
+        </header>
+        <!-- Categorized Content -->
+        <div class="grid grid-cols-1 gap-20">
+            <!-- Section 1: Demandes reçues -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="w-8 h-[1px] bg-primary"></span>
+                    <h3 class="font-headline text-xl font-bold tracking-tight">
+                        Demandes reçues
+                    </h3>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+
+                    @forelse($exchanges as $exchange)
+                        <div
+                            class="group bg-surface-container-lowest rounded-xl p-8 editorial-shadow hover:translate-y-[-4px] transition-all">
+                            <div class="flex items-start gap-6">
+
+                                <!-- Avatar -->
+                                <div class="w-16 h-16 rounded-full overflow-hidden">
+                                    <img class="w-full h-full object-cover"
+                                        src="{{ $exchange->sender->avatar ?? 'https://ui-avatars.com/api/?name=' . $exchange->sender->name }}" />
+                                </div>
+
+                                <!-- Content -->
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h4 class="font-headline text-lg font-bold">
+                                                {{ $exchange->sender->name }}
+                                            </h4>
+                                            <p class="text-sm text-gray-500">
+                                                {{ $exchange->sender->email }}
+                                            </p>
+                                        </div>
+
+                                        <span class="text-xs text-gray-400">
+                                            {{ $exchange->created_at->diffForHumans() }}
+                                        </span>
+                                    </div>
+
+                                    <div class="mt-4 bg-gray-100 p-4 rounded-lg">
+                                        <p class="text-sm">
+                                            Wants
+                                            <span class="text-primary font-bold">
+                                                {{ $exchange->skillWanted->name }}
+                                            </span>
+                                            and offers
+                                            <span class="text-secondary font-bold">
+                                                {{ $exchange->skillOffered->name }}
+                                            </span>
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-6 flex gap-3">
+
+                                        <!-- Accept -->
+                                        <form action="{{ route('exchanges.update', $exchange->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="accepted">
+                                            <button class="flex-1 px-4 py-2 bg-green-500 text-white rounded-full">
+                                                Accept
+                                            </button>
+                                        </form>
+
+                                        <!-- Reject -->
+                                        <form action="{{ route('exchanges.update', $exchange->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="rejected">
+                                            <button class="flex-1 px-4 py-2 border rounded-full">
+                                                Reject
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    @empty
+                        <p class="text-gray-500">No exchanges found.</p>
+                    @endforelse
+
+                </div>
+            </section>
+            <!-- Section 2: Acceptations -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="w-8 h-[1px] bg-secondary"></span>
+                    <h3 class="font-headline text-xl font-bold tracking-tight">Acceptations</h3>
+                </div>
+                <div class="space-y-6">
+                    <!-- Acceptance Item -->
+                    <div
+                        class="relative overflow-hidden bg-white rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 editorial-shadow">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+                        <div class="flex items-center gap-5">
+                            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary-container">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="A confident woman professional smiling in a light, airy modern office with soft golden hour lighting"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWFgmT2XUrscIvu3cz1gz1ZypBXbcR9V7snvvprjai5uwrbEK56SOKesTEZDh97mGSeidFTlWwT0SqewwhvGqGlenLVKYAS7Wq4aiyo-l1s8gjnN1xWJUZjE03Ph5cSRl1Qkp9qUnFBOji6t4vF8ymQDiqQyeECAym1I8tuooSKcqNEU85Hqy1YGymHSU0lqdJgBzJGZrBg2bzYB5PTqx0kLfuq0edTJBr8evTWGTjKAhKb_vlsnuCf8M6skVrA56ricluPS1DTWIw" />
+                            </div>
+                            <div>
+                                <p class="font-headline text-on-surface font-medium leading-tight">
+                                    <span class="font-bold">Elena Rossi</span> accepted your request for <span
+                                        class="italic">Renaissance History</span>.
+                                </p>
+                                <p
+                                    class="font-label text-xs text-on-surface-variant/60 mt-1 uppercase tracking-tighter">
+                                    Connected 12 minutes ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 shrink-0">
+                            <button
+                                class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-headline text-sm font-bold">
+                                <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                Schedule
+                            </button>
+                            <button
+                                class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
+                                <span class="material-symbols-outlined"
+                                    style="font-variation-settings: 'FILL' 1;">mail</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Acceptance Item 2 -->
+                    <div
+                        class="relative overflow-hidden bg-white rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 editorial-shadow">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+                        <div class="flex items-center gap-5">
+                            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary-container">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="Minimalist portrait of a woman looking thoughtfully away, soft cinematic lighting with warm earth tones"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHXb-bLiR5BWVc0p_I98Z8wRC2Pi97PbAXbgyJnFN8Lx_FK9zMnNUv6DZKKrjrw4QNBP0cOYENw6Wukx-D1u1ePjuQKDtQao4NjWekGyPXTgdvMzEX2kPn5in0yf9me0Fu6N7hMopahbhdwRsKaoBSzbjWqqUEL7rEC099t3MjD-7LiZQZamIaD06Yc2R4lw6_SwZYJWmiY-IuHV0jioHDmvNfMKz_lzBEhYDJI3N0EN8iuQRc_Kovzc08b-1gED7GhggsxrPdHb6R" />
+                            </div>
+                            <div>
+                                <p class="font-headline text-on-surface font-medium leading-tight">
+                                    <span class="font-bold">Sasha K.</span> is ready to discuss <span
+                                        class="italic">Ethical AI Frameworks</span>.
+                                </p>
+                                <p
+                                    class="font-label text-xs text-on-surface-variant/60 mt-1 uppercase tracking-tighter">
+                                    Connected yesterday</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 shrink-0">
+                            <button
+                                class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-headline text-sm font-bold">
+                                <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                Schedule
+                            </button>
+                            <button
+                                class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
+                                <span class="material-symbols-outlined"
+                                    style="font-variation-settings: 'FILL' 1;">mail</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Section 3: Messages système -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="w-8 h-[1px] bg-tertiary"></span>
+                    <h3 class="font-headline text-xl font-bold tracking-tight">Messages système</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- System Card 1 -->
+                    <div
+                        class="bg-surface-container-low rounded-xl p-6 flex flex-col items-start gap-4 transition-colors hover:bg-surface-container-high/50">
+                        <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">military_tech</span>
+                        </div>
+                        <div>
+                            <h5 class="font-headline font-bold text-on-surface">New Badge Earned</h5>
+                            <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">You've unlocked the
+                                <span class="font-bold">"Diligent Scholar"</span> tier for 5 consecutive successful
+                                swaps.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- System Card 2 -->
+                    <div
+                        class="bg-surface-container-low rounded-xl p-6 flex flex-col items-start gap-4 transition-colors hover:bg-surface-container-high/50">
+                        <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                        </div>
+                        <div>
+                            <h5 class="font-headline font-bold text-on-surface">Points Credited</h5>
+                            <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Your balance was
+                                updated. <span class="font-bold">+250 Archive Points</span> added to your vault.</p>
+                        </div>
+                    </div>
+                    <!-- System Card 3 -->
+                    <div
+                        class="bg-surface-container-low rounded-xl p-6 flex flex-col items-start gap-4 transition-colors hover:bg-surface-container-high/50">
+                        <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">campaign</span>
+                        </div>
+                        <div>
+                            <h5 class="font-headline font-bold text-on-surface">Platform Update</h5>
+                            <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Version 4.2 is live. New
+                                categorization tools for your archive are now available.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    </div>
+    <!-- Mobile Bottom NavBar -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-lg px-8 py-4 flex justify-between items-center z-50 tonal-transition border-t border-outline-variant/10">
+        <button class="flex flex-col items-center gap-1 text-[#2d1600]/40">
+            <span class="material-symbols-outlined text-2xl">grid_view</span>
+        </button>
+        <button class="flex flex-col items-center gap-1 text-[#80552c]">
+            <span class="material-symbols-outlined text-2xl"
+                style="font-variation-settings: 'FILL' 1;">swap_horiz</span>
+        </button>
+        <button
+            class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center -translate-y-6 shadow-xl shadow-primary/20">
+            <span class="material-symbols-outlined text-2xl">add</span>
+        </button>
+        <button class="flex flex-col items-center gap-1 text-[#2d1600]/40">
+            <span class="material-symbols-outlined text-2xl">mail</span>
+        </button>
+        <button class="flex flex-col items-center gap-1 text-[#2d1600]/40">
+            <span class="material-symbols-outlined text-2xl">person</span>
+        </button>
+    </nav>
+
+</x-app-layout>
