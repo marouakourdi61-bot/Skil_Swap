@@ -7,6 +7,7 @@ use App\Http\Controllers\UserSkillController;
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileShowController;
+use App\Http\Controllers\ExchangeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,6 +47,11 @@ Route::get('/profile/show', [ProfileShowController::class, 'index'])->name('prof
     Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+
+
+    Route::resource('exchanges', ExchangeController::class);
+    
 });
 
 require __DIR__.'/auth.php';
