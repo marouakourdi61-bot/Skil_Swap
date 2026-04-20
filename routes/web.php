@@ -8,6 +8,8 @@ use App\Http\Controllers\UserSkillController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileShowController;
 use App\Http\Controllers\ExchangeController;
+use App\Http\Controllers\MatchesController;
+
 
 Route::get('/', function () {
     return view('welcome');

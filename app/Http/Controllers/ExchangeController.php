@@ -25,6 +25,7 @@ class ExchangeController extends Controller
     public function create()
     {
         return view('pages.exchanges.create');
+        
     }
 
     /**
