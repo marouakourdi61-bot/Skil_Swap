@@ -10,6 +10,7 @@
                    class="w-full p-4 rounded-xl border border-gray-300 shadow-sm focus:outline-none"
             >
         </div>
+        
 
         <!-- RESULTS -->
         <div id="results" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -37,6 +38,7 @@ document.querySelector('input[name="search"]').addEventListener('keyup', functio
             .then(data => {
                 document.getElementById('results').innerHTML = data;
             });
+            
 
     }, 300);
 
