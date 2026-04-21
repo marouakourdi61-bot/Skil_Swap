@@ -19,8 +19,8 @@
         </a>
         <a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium hover:text-[#80552c] dark:hover:text-[#bd8a5c] transition-all duration-300 ease-out hover:translate-x-1"
             href="/matches">
-            <span class="material-symbols-outlined" data-icon="psychology">psychology</span>
-            <span class="font-headline text-sm tracking-tight">Matches</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">handshake</span>
+            <span class="font-headline">Matches</span>
         </a>
         <a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium hover:text-[#80552c] dark:hover:text-[#bd8a5c] transition-all duration-300 ease-out hover:translate-x-1"
             href="{{ route('exchanges.index') }}">
