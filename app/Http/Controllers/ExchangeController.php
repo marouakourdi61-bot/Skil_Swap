@@ -89,6 +89,7 @@ class ExchangeController extends Controller
                     ->where('type', 'offered')
                 ),
             ],
+            
             'skill_wanted_id' => [
                 'required',
                 'integer',
