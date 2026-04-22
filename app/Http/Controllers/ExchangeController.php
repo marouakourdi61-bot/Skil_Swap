@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Exchange;
+use App\Models\User;
 
 class ExchangeController extends Controller
 {
@@ -25,7 +26,7 @@ class ExchangeController extends Controller
     public function create()
     {
         return view('pages.exchanges.create');
-        
+
     }
 
     /**
@@ -80,5 +81,24 @@ class ExchangeController extends Controller
 
         return redirect()->route('pages.exchanges.index')
             ->with('success', 'Exchange supprimé');
+    }
+
+    public function send(Request $request ,User $user)
+    {
+      
+
+        $skill = auth()->user()->skills()->first();
+        dd($skill); 
+        Exchange::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $user->id,
+            'skill_id' =>  $skill?->id,
+            'status' => 'pending',
+            'date' => now()
+        ]);
+
+          
+
+        return back()->with('success', 'Request sent');
     }
 }

@@ -55,6 +55,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/matches', [MatchesController::class, 'index'])->name('matches.index');
     Route::get('/matches/search', [MatchesController::class, 'search'])->name('matches.search');
 
+    Route::get('/exchanges', [ExchangeController::class, 'index'])
+        ->name('exchange.index');
+    Route::post('/exchange/send/{user}', [ExchangeController::class, 'send'])
+        ->name('exchange.send');
+
+    Route::post('/exchange/accept/{exchange}', [ExchangeController::class, 'accept'])
+        ->name('exchange.accept');
+
+    Route::post('/exchange/reject/{exchange}', [ExchangeController::class, 'reject'])
+        ->name('exchange.reject');
+
 });
 
 require __DIR__ . '/auth.php';
