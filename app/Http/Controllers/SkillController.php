@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Skill;
+use Illuminate\Support\Facades\Auth;
 
 class SkillController extends Controller
 {
@@ -11,12 +12,16 @@ class SkillController extends Controller
 
     public function index(Request $request)
     {
-        $query = Skill::query();
+        $user = Auth::user();
+
+        $query = $user->skills();
 
         if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('category', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('skills.name', 'like', '%' . $search . '%')
+                    ->orWhere('skills.category', 'like', '%' . $search . '%');
             });
         }
 
@@ -35,10 +40,21 @@ class SkillController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'type' => 'required|in:offered,wanted',
         ]);
 
-        Skill::create($request->all());
+        $skill = Skill::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'description' => $request->description,
+        ]);
+
+        Auth::user()->skills()->syncWithoutDetaching([
+            $skill->id => [
+                'type' => $request->type,
+            ],
+        ]);
 
         return redirect()->route('skills.index')
             ->with('success', 'Skill ajoutée avec succès');

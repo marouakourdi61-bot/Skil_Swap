@@ -9,7 +9,11 @@ class MatchesController extends Controller
 {
     public function index()
 {
-    $users = User::with('skills')->get();
+
+    
+    $users = User::with('skills')
+        ->where('id', '!=', auth()->id())
+        ->get();
 
 
     return view('pages.matches.index', compact('users'));
@@ -30,5 +34,14 @@ class MatchesController extends Controller
             ->get();
         
         return view('pages.matches.partials.users', compact('users'));
+    }
+
+    public function show(User $user)
+    {
+        abort_if($user->id === auth()->id(), 404);
+
+        $user->load('skills');
+
+        return view('pages.matches.show', compact('user'));
     }
 }

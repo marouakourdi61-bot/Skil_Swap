@@ -23,7 +23,7 @@
             <span class="font-headline">Matches</span>
         </a>
         <a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium hover:text-[#80552c] dark:hover:text-[#bd8a5c] transition-all duration-300 ease-out hover:translate-x-1"
-            href="{{ route('exchange.index') }}">
+            href="/exchanges">
             <span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
             <span class="font-headline text-sm tracking-tight">Exchanges</span>
         </a>

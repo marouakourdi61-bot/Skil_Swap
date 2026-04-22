@@ -12,32 +12,43 @@
             <div>
                 <label class="block text-sm font-bold mb-2">Skill You Offer</label>
                 <select name="skill_offered_id" class="w-full p-3 rounded-lg border">
-                    @foreach($skills as $skill)
+                    @foreach($myOfferedSkills as $skill)
                         <option value="{{ $skill->id }}">
                             {{ $skill->name }}
                         </option>
                     @endforeach
                 </select>
+                @if($myOfferedSkills->isEmpty())
+                    <p class="text-sm text-gray-500 mt-2">You have no offered skills yet.</p>
+                @endif
             </div>
 
             <!-- Skill Wanted -->
             <div>
                 <label class="block text-sm font-bold mb-2">Skill You Want</label>
                 <select name="skill_wanted_id" class="w-full p-3 rounded-lg border">
-                    @foreach($skills as $skill)
-                        <option value="{{ $skill->id }}">
-                            {{ $skill->name }}
-                        </option>
-                    @endforeach
+                    @if($receiverSkills->isEmpty())
+                        <option value="">Select a user first</option>
+                    @else
+                        @foreach($receiverSkills as $skill)
+                            <option value="{{ $skill->id }}">
+                                {{ $skill->name }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
+                @if($receiverId && $receiverSkills->isEmpty())
+                    <p class="text-sm text-gray-500 mt-2">{{ $receiver?->name ?? 'This user' }} has no offered skills.</p>
+                @endif
             </div>
 
             <!-- Receiver -->
             <div>
                 <label class="block text-sm font-bold mb-2">Choose User</label>
-                <select name="receiver_id" class="w-full p-3 rounded-lg border">
+                <select name="receiver_id" class="w-full p-3 rounded-lg border"
+                        onchange="window.location='{{ route('exchanges.create') }}?receiver_id=' + this.value">
                     @foreach($users as $user)
-                        <option value="{{ $user->id }}">
+                        <option value="{{ $user->id }}" @selected(isset($receiverId) && (int)$receiverId === (int)$user->id)>
                             {{ $user->name }}
                         </option>
                     @endforeach

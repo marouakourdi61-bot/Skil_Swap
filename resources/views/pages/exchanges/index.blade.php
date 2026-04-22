@@ -61,13 +61,9 @@
 
                                     <div class="mt-4 bg-gray-100 p-4 rounded-lg">
                                         <p class="text-sm">
-                                            Wants
-                                            <span class="text-primary font-bold">
-                                                {{ $exchange->skillWanted->name }}
-                                            </span>
-                                            and offers
+                                            Offers
                                             <span class="text-secondary font-bold">
-                                                {{ $exchange->skillOffered->name }}
+                                                {{ $exchange->skillOffered?->name ?? $exchange->skill?->name ?? 'N/A' }}
                                             </span>
                                         </p>
                                     </div>
@@ -112,72 +108,52 @@
                     <h3 class="font-headline text-xl font-bold tracking-tight">Acceptations</h3>
                 </div>
                 <div class="space-y-6">
-                    <!-- Acceptance Item -->
-                    <div
-                        class="relative overflow-hidden bg-white rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 editorial-shadow">
-                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
-                        <div class="flex items-center gap-5">
-                            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary-container">
-                                <img class="w-full h-full object-cover"
-                                    data-alt="A confident woman professional smiling in a light, airy modern office with soft golden hour lighting"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWFgmT2XUrscIvu3cz1gz1ZypBXbcR9V7snvvprjai5uwrbEK56SOKesTEZDh97mGSeidFTlWwT0SqewwhvGqGlenLVKYAS7Wq4aiyo-l1s8gjnN1xWJUZjE03Ph5cSRl1Qkp9qUnFBOji6t4vF8ymQDiqQyeECAym1I8tuooSKcqNEU85Hqy1YGymHSU0lqdJgBzJGZrBg2bzYB5PTqx0kLfuq0edTJBr8evTWGTjKAhKb_vlsnuCf8M6skVrA56ricluPS1DTWIw" />
+                    @forelse($acceptedExchanges as $exchange)
+                        <div
+                            class="relative overflow-hidden bg-white rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 editorial-shadow">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+                            <div class="flex items-center gap-5">
+                                <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary-container">
+                                    <img class="w-full h-full object-cover"
+                                        src="{{ $exchange->receiver->avatar ?? 'https://ui-avatars.com/api/?name=' . $exchange->receiver->name }}" />
+                                </div>
+                                <div>
+                                    <p class="font-headline text-on-surface font-medium leading-tight">
+                                        @php
+                                            $otherUser = $exchange->sender_id === auth()->id() ? $exchange->receiver : $exchange->sender;
+                                        @endphp
+
+                                        <span class="font-bold">{{ $otherUser->name }}</span>
+                                        accepted the exchange:
+                                        <span class="italic">
+                                            {{ $exchange->skillWanted?->name ?? 'N/A' }}
+                                        </span>
+                                        ⇄
+                                        <span class="italic">
+                                            {{ $exchange->skillOffered?->name ?? $exchange->skill?->name ?? 'N/A' }}
+                                        </span>
+                                    </p>
+                                    <p class="font-label text-xs text-on-surface-variant/60 mt-1 uppercase tracking-tighter">
+                                        Connected {{ $exchange->updated_at->diffForHumans() }}
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="font-headline text-on-surface font-medium leading-tight">
-                                    <span class="font-bold">Elena Rossi</span> accepted your request for <span
-                                        class="italic">Renaissance History</span>.
-                                </p>
-                                <p
-                                    class="font-label text-xs text-on-surface-variant/60 mt-1 uppercase tracking-tighter">
-                                    Connected 12 minutes ago</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 shrink-0">
-                            <button
-                                class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-headline text-sm font-bold">
-                                <span class="material-symbols-outlined text-sm">calendar_today</span>
-                                Schedule
-                            </button>
-                            <button
-                                class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
-                                <span class="material-symbols-outlined"
-                                    style="font-variation-settings: 'FILL' 1;">mail</span>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Acceptance Item 2 -->
-                    <div
-                        class="relative overflow-hidden bg-white rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 editorial-shadow">
-                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
-                        <div class="flex items-center gap-5">
-                            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary-container">
-                                <img class="w-full h-full object-cover"
-                                    data-alt="Minimalist portrait of a woman looking thoughtfully away, soft cinematic lighting with warm earth tones"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHXb-bLiR5BWVc0p_I98Z8wRC2Pi97PbAXbgyJnFN8Lx_FK9zMnNUv6DZKKrjrw4QNBP0cOYENw6Wukx-D1u1ePjuQKDtQao4NjWekGyPXTgdvMzEX2kPn5in0yf9me0Fu6N7hMopahbhdwRsKaoBSzbjWqqUEL7rEC099t3MjD-7LiZQZamIaD06Yc2R4lw6_SwZYJWmiY-IuHV0jioHDmvNfMKz_lzBEhYDJI3N0EN8iuQRc_Kovzc08b-1gED7GhggsxrPdHb6R" />
-                            </div>
-                            <div>
-                                <p class="font-headline text-on-surface font-medium leading-tight">
-                                    <span class="font-bold">Sasha K.</span> is ready to discuss <span
-                                        class="italic">Ethical AI Frameworks</span>.
-                                </p>
-                                <p
-                                    class="font-label text-xs text-on-surface-variant/60 mt-1 uppercase tracking-tighter">
-                                    Connected yesterday</p>
+                            <div class="flex items-center gap-4 shrink-0">
+                                <button
+                                    class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-headline text-sm font-bold">
+                                    <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                    Schedule
+                                </button>
+                                <a href="mailto:{{ $otherUser->email }}"
+                                   class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
+                                    <span class="material-symbols-outlined"
+                                        style="font-variation-settings: 'FILL' 1;">mail</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="flex items-center gap-4 shrink-0">
-                            <button
-                                class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-headline text-sm font-bold">
-                                <span class="material-symbols-outlined text-sm">calendar_today</span>
-                                Schedule
-                            </button>
-                            <button
-                                class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
-                                <span class="material-symbols-outlined"
-                                    style="font-variation-settings: 'FILL' 1;">mail</span>
-                            </button>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="text-gray-500">No acceptations found.</p>
+                    @endforelse
                 </div>
             </section>
             <!-- Section 3: Messages système -->

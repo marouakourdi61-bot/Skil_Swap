@@ -14,8 +14,11 @@ class Exchange extends Model
         'sender_id',
         'receiver_id',
         'skill_id',
+        'skill_offered_id',
+        'skill_wanted_id',
         'status',
-        'scheduled_at'
+        'scheduled_at',
+        'message',
     ];
 
     public function sender()
@@ -27,6 +30,11 @@ class Exchange extends Model
     public function receiver()
     {
         return $this->belongsTo(User::class, 'receiver_id');
+    }
+
+    public function skill()
+    {
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 
 

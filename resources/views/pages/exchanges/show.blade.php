@@ -17,19 +17,12 @@
         </div>
 
         <!-- Skills -->
-        <div class="grid grid-cols-2 gap-6 mb-10">
+        <div class="grid grid-cols-1 gap-6 mb-10">
 
             <div class="p-6 bg-gray-100 rounded-lg">
                 <p class="text-sm text-gray-500">Offers</p>
                 <h3 class="text-lg font-bold text-primary">
-                    {{ $exchange->skillOffered->name }}
-                </h3>
-            </div>
-
-            <div class="p-6 bg-gray-100 rounded-lg">
-                <p class="text-sm text-gray-500">Wants</p>
-                <h3 class="text-lg font-bold text-secondary">
-                    {{ $exchange->skillWanted->name }}
+                    {{ $exchange->skillOffered?->name ?? $exchange->skill?->name ?? 'N/A' }}
                 </h3>
             </div>
 
