@@ -133,7 +133,8 @@
                                             {{ $exchange->skillOffered?->name ?? $exchange->skill?->name ?? 'N/A' }}
                                         </span>
                                     </p>
-                                    <p class="font-label text-xs text-on-surface-variant/60 mt-1 uppercase tracking-tighter">
+                                    <p
+                                        class="font-label text-xs text-on-surface-variant/60 mt-1 uppercase tracking-tighter">
                                         Connected {{ $exchange->updated_at->diffForHumans() }}
                                     </p>
                                 </div>
@@ -144,11 +145,10 @@
                                     <span class="material-symbols-outlined text-sm">calendar_today</span>
                                     Schedule
                                 </button>
-                                <a href="mailto:{{ $otherUser->email }}"
-                                   class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
-                                    <span class="material-symbols-outlined"
-                                        style="font-variation-settings: 'FILL' 1;">mail</span>
-                                </a>
+                                <button onclick="openModal({{ $otherUser->id }}, '{{ $otherUser->email }}', '{{ $otherUser->name }}')"
+                                    class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
+                                    <span class="material-symbols-outlined">mail</span>
+                                </button>
                             </div>
                         </div>
                     @empty
@@ -208,6 +208,8 @@
             </section>
         </div>
     </main>
+
+
     </div>
     <!-- Mobile Bottom NavBar -->
     <nav
@@ -230,5 +232,52 @@
             <span class="material-symbols-outlined text-2xl">person</span>
         </button>
     </nav>
+
+
+    <!-- MAIL MODAL -->
+    <div id="mailModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md relative">
+
+            <!-- Close -->
+            <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500">✖</button>
+
+            <h2 class="text-lg font-bold mb-4">Send Email</h2>
+
+            <form id="mailForm">
+                <input type="hidden" id="userEmail">
+
+                <div class="mb-4">
+                    <label class="block text-sm mb-1">Message</label>
+                    <textarea id="message" class="w-full border rounded-lg p-2" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg w-full">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal(userId, email, name) {
+            document.getElementById('mailModal').classList.remove('hidden');
+            document.getElementById('mailModal').classList.add('flex');
+
+            document.getElementById('userEmail').value = email;
+        }
+
+        function closeModal() {
+            document.getElementById('mailModal').classList.add('hidden');
+        }
+
+        document.getElementById('mailForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let email = document.getElementById('userEmail').value;
+            let message = document.getElementById('message').value;
+
+            window.location.href = `mailto:${email}?subject=Skill Swap&body=${encodeURIComponent(message)}`;
+        });
+    </script>
 
 </x-app-layout>
