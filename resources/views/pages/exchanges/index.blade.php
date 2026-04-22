@@ -124,7 +124,7 @@
                                         @endphp
 
                                         <span class="font-bold">{{ $otherUser->name }}</span>
-                                        accepted the exchange:
+                                        The exchange is done:
                                         <span class="italic">
                                             {{ $exchange->skillWanted?->name ?? 'N/A' }}
                                         </span>
