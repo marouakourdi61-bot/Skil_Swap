@@ -145,7 +145,8 @@
                                     <span class="material-symbols-outlined text-sm">calendar_today</span>
                                     Schedule
                                 </button>
-                                <button onclick="openModal({{ $otherUser->id }}, '{{ $otherUser->email }}', '{{ $otherUser->name }}')"
+                                <button
+                                    onclick="openModal({{ $otherUser->id }}, '{{ $otherUser->email }}', '{{ $otherUser->name }}')"
                                     class="p-2.5 rounded-full bg-secondary-container/20 text-secondary hover:bg-secondary-container/40 transition-colors">
                                     <span class="material-symbols-outlined">mail</span>
                                 </button>
@@ -236,25 +237,46 @@
 
     <!-- MAIL MODAL -->
     <div id="mailModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-6 w-full max-w-md relative">
+
+        <div class="bg-white rounded-2xl p-6 w-full max-w-lg relative shadow-xl">
 
             <!-- Close -->
-            <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500">✖</button>
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500">
+                ✖
+            </button>
 
-            <h2 class="text-lg font-bold mb-4">Send Email</h2>
+            <h2 class="text-xl font-bold mb-6">Send Message</h2>
 
-            <form id="mailForm">
-                <input type="hidden" id="userEmail">
+            <form action="{{ route('message.send') }}" method="POST" id="mailForm" class="space-y-4">
+                @csrf
 
-                <div class="mb-4">
-                    <label class="block text-sm mb-1">Message</label>
-                    <textarea id="message" class="w-full border rounded-lg p-2" rows="4"></textarea>
+                <!-- TO -->
+                <div>
+                    <label class="text-sm font-medium">To</label>
+                    <input type="email" name="to_email" id="toEmail" readonly
+                        class="w-full border rounded-lg p-2 bg-gray-100">
                 </div>
 
-                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg w-full">
+                <!-- SUBJECT -->
+                <div>
+                    <label class="text-sm font-medium">Subject</label>
+                    <input type="text" name="subject" id="subject" class="w-full border rounded-lg p-2"
+                        placeholder="Enter subject...">
+                </div>
+
+                <!-- MESSAGE -->
+                <div>
+                    <label class="text-sm font-medium">Message</label>
+                    <textarea name="message" id="message" rows="5" class="w-full border rounded-lg p-2"
+                        placeholder="Write your message..."></textarea>
+                </div>
+
+                <!-- SEND -->
+                <button type="submit" class="w-full bg-primary text-white py-2 rounded-lg font-bold">
                     Send
                 </button>
             </form>
+
         </div>
     </div>
 
@@ -263,21 +285,13 @@
             document.getElementById('mailModal').classList.remove('hidden');
             document.getElementById('mailModal').classList.add('flex');
 
-            document.getElementById('userEmail').value = email;
+            document.getElementById('toEmail').value = email;
         }
 
         function closeModal() {
             document.getElementById('mailModal').classList.add('hidden');
         }
 
-        document.getElementById('mailForm').addEventListener('submit', function (e) {
-            e.preventDefault();
 
-            let email = document.getElementById('userEmail').value;
-            let message = document.getElementById('message').value;
-
-            window.location.href = `mailto:${email}?subject=Skill Swap&body=${encodeURIComponent(message)}`;
-        });
     </script>
-
 </x-app-layout>

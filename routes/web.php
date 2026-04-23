@@ -10,6 +10,8 @@ use App\Http\Controllers\ProfileShowController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\MatchesController;
 
+use App\Http\Controllers\MessageController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,6 +64,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/exchanges', [ExchangeController::class, 'store'])->name('exchanges.store');
     Route::get('/exchanges/{exchange}', [ExchangeController::class, 'show'])->name('exchanges.show');
     Route::patch('/exchanges/{exchange}', [ExchangeController::class, 'update'])->name('exchanges.update');
+
+    Route::post('/message/send', [MessageController::class, 'send'])
+    ->name('message.send')
+    ->middleware('auth');
 
 });
 
