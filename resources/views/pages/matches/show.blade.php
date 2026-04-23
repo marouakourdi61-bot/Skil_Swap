@@ -28,12 +28,7 @@
                                 </p>
                             </div>
 
-                            <div class="flex items-center gap-3">
-                                <a href="{{ route('exchanges.create', ['receiver_id' => $user->id]) }}"
-                                   class="bg-primary text-on-primary px-6 py-3 rounded-full font-headline font-bold text-sm shadow-sm">
-                                    Send Exchange
-                                </a>
-                            </div>
+                            
                         </div>
 
                         <p class="font-body text-on-surface-variant mt-6 leading-relaxed">
@@ -45,43 +40,63 @@
                                 Skills
                             </h2>
 
-                            <div class="space-y-4">
-                                @forelse($user->skills as $skill)
-                                    <div class="flex flex-col md:flex-row gap-5 bg-surface-container-high/40 rounded-2xl p-5">
-                                        <div class="md:w-44 h-28 rounded-xl overflow-hidden shrink-0">
-                                            <img
-                                                class="w-full h-full object-cover"
-                                                src="https://via.placeholder.com/240x160?text=Skill"
-                                                alt="{{ $skill->name }}"
-                                            >
-                                        </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                                        <div class="flex-1">
-                                            <div class="flex items-start justify-between gap-4">
-                                                <div>
-                                                    <h3 class="font-headline text-lg font-extrabold text-on-surface">
-                                                        {{ $skill->name }}
-                                                    </h3>
-                                                    <p class="text-xs text-on-surface-variant mt-1">
-                                                        {{ $skill->category ?? 'General' }} • {{ $skill->pivot->type }}
-                                                    </p>
-                                                </div>
+    @forelse($user->skills as $skill)
 
-                                                <a href="{{ route('exchanges.create', ['receiver_id' => $user->id]) }}"
-                                                   class="px-4 py-2 rounded-full bg-primary text-on-primary text-xs font-bold">
-                                                    Send Exchange
-                                                </a>
-                                            </div>
+        <div class="group bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-[0_40px_60px_rgba(45,22,0,0.08)] transition-all duration-500">
 
-                                            <p class="text-sm text-on-surface-variant mt-3 leading-relaxed">
-                                                {{ $skill->description ?: 'No description available.' }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                @empty
-                                    <p class="text-gray-500">No skills.</p>
-                                @endforelse
-                            </div>
+            <!-- IMAGE -->
+            <div class="h-48 overflow-hidden">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                     src="https://via.placeholder.com/400x300?text=Skill"
+                     alt="{{ $skill->name }}">
+            </div>
+
+            <!-- CONTENT -->
+            <div class="p-8 space-y-4">
+
+                <div class="flex justify-between items-start">
+                    <h4 class="text-2xl font-headline font-bold">
+                        {{ $skill->name }}
+                    </h4>
+
+                    <span class="label-text text-[10px] bg-surface-container-high px-2 py-1 rounded font-bold uppercase">
+                        {{ strtoupper($skill->pivot->type) }}
+                    </span>
+                </div>
+
+                <p class="text-on-surface-variant leading-relaxed text-sm">
+                    {{ $skill->description ?? 'No description available.' }}
+                </p>
+
+                <!-- CATEGORY -->
+                <div class="pt-4 flex gap-2 flex-wrap">
+                    <span class="text-xs bg-surface-container text-on-surface-variant px-3 py-1 rounded-full">
+                        {{ $skill->category ?? 'General' }}
+                    </span>
+
+                    <span class="text-xs bg-surface-container text-on-surface-variant px-3 py-1 rounded-full">
+                        {{ $skill->pivot->type }}
+                    </span>
+                </div>
+
+                <!-- BUTTON -->
+                <a href="{{ route('exchanges.create', ['receiver_id' => $user->id]) }}"
+                   class="inline-block mt-4 px-5 py-2 rounded-full bg-primary text-on-primary text-xs font-bold">
+                    Send Exchange
+                </a>
+
+            </div>
+        </div>
+
+    @empty
+
+        <p class="text-gray-500">No skills.</p>
+
+    @endforelse
+
+</div>
                         </div>
                     </div>
                 </div>

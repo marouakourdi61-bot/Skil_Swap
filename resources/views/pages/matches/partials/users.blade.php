@@ -1,17 +1,9 @@
 @foreach($users as $user)
 
-<a href="{{ route('matches.show', $user->id) }}" class="md:col-span-2 block">
-<div class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row group hover:shadow-[0_20px_40px_rgba(45,22,0,0.06)] transition-all duration-500">
-
-    <!-- IMAGE -->
-    <div class="relative md:w-1/2 h-72 md:h-auto overflow-hidden">
-        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-             src="{{ $user->image ?? 'https://via.placeholder.com/400' }}">
-
-        <div class="absolute top-6 left-6 bg-primary text-on-primary px-4 py-1 rounded-full font-label text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg">
-            Master
-        </div>
-    </div>
+<a href="{{ route('matches.show', $user->id) }}" class="md:col-span-1 block">
+<div class="bg-surface-container-lowest w-full max-w-5xl mx-auto rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-3 group hover:shadow-[0_20px_40px_rgba(45,22,0,0.06)] transition-all duration-500">
+   
+    
 
     <!-- CONTENT -->
     <div class="md:w-1/2 p-10 flex flex-col">
@@ -29,10 +21,7 @@
                 </p>
             </div>
 
-            <div class="bg-surface-container-high/50 backdrop-blur px-4 py-2 rounded-2xl flex flex-col items-center gap-0.5">
-                <span class="font-headline font-black text-xl text-primary">4.8</span>
-                <span class="font-label text-[9px] uppercase font-bold tracking-tighter">Rating</span>
-            </div>
+            
 
         </div>
 
