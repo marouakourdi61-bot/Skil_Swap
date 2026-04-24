@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'bio',
+        'city',
+        'image',
+        'availability'
     ];
 
     /**
@@ -45,7 +49,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    
+
 
     public function skills()
     {
