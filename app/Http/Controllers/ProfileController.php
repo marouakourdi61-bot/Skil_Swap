@@ -28,18 +28,26 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        // validation 
+       
         $data = $request->validated();
+       // dd($data);
 
         // image 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('users', 'public');
         }
 
-        
-        $user->fill($data);
 
-        
+        $user->fill([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'bio' => $data['bio'] ?? null,
+            'location' => $data['location'] ?? null,
+            'availability' => $data['availability'] ?? null,
+            'image' => $data['image'] ?? $user->image,
+        ]);
+
+
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }

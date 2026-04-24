@@ -9,14 +9,24 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('image')->nullable();
+{
+    Schema::table('users', function (Blueprint $table) {
+
+        if (!Schema::hasColumn('users', 'bio')) {
             $table->text('bio')->nullable();
+        }
+
+        if (!Schema::hasColumn('users', 'location')) {
             $table->string('location')->nullable();
+        }
+
+        if (!Schema::hasColumn('users', 'availability')) {
             $table->string('availability')->nullable();
-        });
-    }
+        }
+
+       
+    });
+}
 
     /**
      * Reverse the migrations.
