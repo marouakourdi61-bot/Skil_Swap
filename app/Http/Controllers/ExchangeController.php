@@ -55,9 +55,11 @@ class ExchangeController extends Controller
         $receiverSkills = collect();
 
         if ($receiverId) {
-            $receiver = User::with(['skills' => function ($q) {
-                $q->wherePivot('type', 'offered')->orderBy('skills.name');
-            }])->whereKey($receiverId)->first();
+            $receiver = User::with([
+                'skills' => function ($q) {
+                    $q->wherePivot('type', 'offered')->orderBy('skills.name');
+                }
+            ])->whereKey($receiverId)->first();
 
             if ($receiver && $receiver->id !== auth()->id()) {
                 $receiverSkills = $receiver->skills;
@@ -71,7 +73,7 @@ class ExchangeController extends Controller
             'receiverSkills',
             'receiver'
         ));
-        
+
     }
 
     /**
@@ -84,19 +86,21 @@ class ExchangeController extends Controller
             'skill_offered_id' => [
                 'required',
                 'integer',
-                Rule::exists('user_skills', 'skill_id')->where(fn ($q) => $q
-                    ->where('user_id', auth()->id())
-                    ->where('type', 'offered')
+                Rule::exists('user_skills', 'skill_id')->where(
+                    fn($q) => $q
+                        ->where('user_id', auth()->id())
+                        ->where('type', 'offered')
                 ),
             ],
-            
+
             'skill_wanted_id' => [
                 'required',
                 'integer',
                 'different:skill_offered_id',
-                Rule::exists('user_skills', 'skill_id')->where(fn ($q) => $q
-                    ->where('user_id', $request->receiver_id)
-                    ->where('type', 'offered')
+                Rule::exists('user_skills', 'skill_id')->where(
+                    fn($q) => $q
+                        ->where('user_id', $request->receiver_id)
+                        ->where('type', 'offered')
                 ),
             ],
             'message' => 'nullable|string|max:1000',
@@ -164,5 +168,20 @@ class ExchangeController extends Controller
 
         return redirect()->route('pages.exchanges.index')
             ->with('success', 'Exchange supprimé');
+    }
+
+
+    public function history()
+    {
+        $history = \App\Models\Exchange::with(['sender', 'receiver', 'skillOffered', 'skillWanted'])
+            ->where(function ($query) {
+                $query->where('sender_id', auth()->id())
+                    ->orWhere('receiver_id', auth()->id());
+            })
+            ->whereIn('status', ['accepted', 'rejected'])
+            ->latest()
+            ->get();
+
+        return view('pages.exchanges.history', compact('history'));
     }
 }

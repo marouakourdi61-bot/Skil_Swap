@@ -37,6 +37,12 @@
             <span class="material-symbols-outlined">person</span>
             Profile 
         </a>
+        <a href="{{ route('exchanges.history') }}"
+            class="flex items-center gap-4 text-stone-500 hover:text-[#80552c] transition-all">
+            <span class="material-symbols-outlined">auto_stories</span>
+            History 
+        </a>
+       
     </nav>
     <div class="mt-auto">
         <a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium hover:text-error transition-all duration-300 ease-out hover:translate-x-1"

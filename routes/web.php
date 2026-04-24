@@ -64,10 +64,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/exchanges', [ExchangeController::class, 'store'])->name('exchanges.store');
     Route::get('/exchanges/{exchange}', [ExchangeController::class, 'show'])->name('exchanges.show');
     Route::patch('/exchanges/{exchange}', [ExchangeController::class, 'update'])->name('exchanges.update');
+    Route::get('/history', [ExchangeController::class, 'history'])->name('exchanges.history');
 
     Route::post('/message/send', [MessageController::class, 'send'])
     ->name('message.send')
     ->middleware('auth');
+
+
+    
 
 });
 
