@@ -72,7 +72,7 @@
                             @endforelse
                         </div>
 
-                        <a href="{{ route('user.skills.index') }}"
+                        <a href="{{ route('skills.index') }}"
                             class="inline-block px-4 py-2 bg-[#80552c] text-white rounded-full text-sm">
                             Manage Skills
                         </a>

@@ -36,7 +36,7 @@
                     <!-- IMAGE (fake or optional) -->
                     <div class="h-40 overflow-hidden bg-[#ffe3cf]">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                            src="https://via.placeholder.com/400x300?text=Skill" alt="{{ $skill->name }}">
+                             src="{{ asset('storage/' . $skill->image) }}" alt="skill image">
                     </div>
 
                     <!-- CONTENT -->

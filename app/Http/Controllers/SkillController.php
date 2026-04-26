@@ -26,7 +26,7 @@ class SkillController extends Controller
         }
 
         $skills = $query->get();
-
+        //  dd($skills->all());
         return view('pages.skills.index', compact('skills'));
     }
 
@@ -42,12 +42,19 @@ class SkillController extends Controller
             'category' => 'required|string|max:255',
             'description' => 'nullable|string',
             'type' => 'required|in:offered,wanted',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+
+         $imagePath =  $request->file('image')->store('images', 'public');
+
+        //  dd($$imageName);
 
         $skill = Skill::create([
             'name' => $request->name,
             'category' => $request->category,
             'description' => $request->description,
+            'image' => $imagePath ,
         ]);
 
         Auth::user()->skills()->syncWithoutDetaching([

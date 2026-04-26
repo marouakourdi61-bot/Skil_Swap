@@ -1,22 +1,27 @@
 <x-app-layout>
-    <main class=" pt-28 pb-12 px-8 min-h-screen">
-        <div class="max-w-[1100px] mx-auto">
+    <main class="px-6 min-h-screen">
+
+        <div class="max-w-5xl mx-auto">
+
+            <!-- BACK -->
             <div class="mb-8">
                 <a href="{{ route('matches.index') }}" class="text-sm text-gray-600 hover:underline">
                     ← Back to matches
                 </a>
             </div>
 
-            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow">
-                <div class="grid grid-cols-1 md:grid-cols-3">
-                    <div class="md:col-span-1">
-                        <img class="w-full h-72 md:h-full object-cover"
-                             src="{{ $user->image ?? 'https://via.placeholder.com/600' }}"
-                             alt="{{ $user->name }}">
-                    </div>
+            <!-- MAIN CARD -->
+            <div class="w-full bg-surface-container-lowest rounded-2xl overflow-hidden shadow">
 
-                    <div class="md:col-span-2 p-10">
+                <!-- FIX: removed 3-col grid (was causing empty space) -->
+                <div class="grid grid-cols-1">
+
+                    <!-- LEFT CONTENT -->
+                    <div class="p-6">
+
+                        <!-- HEADER -->
                         <div class="flex items-start justify-between gap-6">
+
                             <div>
                                 <h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">
                                     {{ $user->name }}
@@ -28,80 +33,90 @@
                                 </p>
                             </div>
 
-                            
                         </div>
 
+                        <!-- BIO -->
                         <p class="font-body text-on-surface-variant mt-6 leading-relaxed">
                             {{ $user->bio ?? 'No description available' }}
                         </p>
 
+                        <!-- SKILLS TITLE -->
                         <div class="mt-10">
-                            <h2 class="font-headline text-xl font-bold tracking-tight text-on-surface mb-6">
+                            <h2 class="font-headline text-xl font-bold text-on-surface mb-6">
                                 Skills
                             </h2>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- GRID SKILLS -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-    @forelse($user->skills as $skill)
+                                @forelse($user->skills as $skill)
 
-        <div class="group bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-[0_40px_60px_rgba(45,22,0,0.08)] transition-all duration-500">
+                                    <div class="w-full h-full bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(45,22,0,0.08)] transition-all duration-500 flex flex-col group">
 
-            <!-- IMAGE -->
-            <div class="h-48 overflow-hidden">
-                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                     src="https://via.placeholder.com/400x300?text=Skill"
-                     alt="{{ $skill->name }}">
-            </div>
+                                        <!-- IMAGE -->
+                                        <div class="h-44 overflow-hidden">
+                                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                 src="https://via.placeholder.com/400x300?text=Skill"
+                                                 alt="{{ $skill->name }}">
+                                        </div>
 
-            <!-- CONTENT -->
-            <div class="p-8 space-y-4">
+                                        <!-- CONTENT -->
+                                        <div class="p-5 flex flex-col flex-1 space-y-3">
 
-                <div class="flex justify-between items-start">
-                    <h4 class="text-2xl font-headline font-bold">
-                        {{ $skill->name }}
-                    </h4>
+                                            <!-- TITLE -->
+                                            <div class="flex justify-between items-start">
+                                                <h4 class="text-xl font-bold text-on-surface">
+                                                    {{ $skill->name }}
+                                                </h4>
 
-                    <span class="label-text text-[10px] bg-surface-container-high px-2 py-1 rounded font-bold uppercase">
-                        {{ strtoupper($skill->pivot->type) }}
-                    </span>
-                </div>
+                                                <span class="text-[10px] bg-surface-container-high px-2 py-1 rounded font-bold uppercase">
+                                                    {{ strtoupper($skill->pivot->type) }}
+                                                </span>
+                                            </div>
 
-                <p class="text-on-surface-variant leading-relaxed text-sm">
-                    {{ $skill->description ?? 'No description available.' }}
-                </p>
+                                            <!-- DESCRIPTION -->
+                                            <p class="text-sm text-on-surface-variant leading-relaxed">
+                                                {{ $skill->description ?? 'No description available.' }}
+                                            </p>
 
-                <!-- CATEGORY -->
-                <div class="pt-4 flex gap-2 flex-wrap">
-                    <span class="text-xs bg-surface-container text-on-surface-variant px-3 py-1 rounded-full">
-                        {{ $skill->category ?? 'General' }}
-                    </span>
+                                            <!-- CATEGORY -->
+                                            <div class="flex flex-wrap gap-2 pt-2">
+                                                <span class="text-xs bg-surface-container px-3 py-1 rounded-full">
+                                                    {{ $skill->category ?? 'General' }}
+                                                </span>
 
-                    <span class="text-xs bg-surface-container text-on-surface-variant px-3 py-1 rounded-full">
-                        {{ $skill->pivot->type }}
-                    </span>
-                </div>
+                                                <span class="text-xs bg-surface-container px-3 py-1 rounded-full">
+                                                    {{ $skill->pivot->type }}
+                                                </span>
+                                            </div>
 
-                <!-- BUTTON -->
-                <a href="{{ route('exchanges.create', ['receiver_id' => $user->id]) }}"
-                   class="inline-block mt-4 px-5 py-2 rounded-full bg-primary text-on-primary text-xs font-bold">
-                    Send Exchange
-                </a>
+                                            <!-- BUTTON -->
+                                            <div class="mt-auto pt-4">
+                                                <a href="{{ route('exchanges.create', ['receiver_id' => $user->id]) }}"
+                                                   class="block text-center bg-primary text-on-primary px-4 py-2 rounded-full text-xs font-bold">
+                                                    Send Exchange
+                                                </a>
+                                            </div>
 
-            </div>
-        </div>
+                                        </div>
+                                    </div>
 
-    @empty
+                                @empty
 
-        <p class="text-gray-500">No skills.</p>
+                                    <p class="text-gray-500">No skills.</p>
 
-    @endforelse
+                                @endforelse
 
-</div>
+                            </div>
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </main>
 </x-app-layout>
-

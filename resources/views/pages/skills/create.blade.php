@@ -15,7 +15,7 @@
         <!-- Form Card -->
         <div class="bg-surface-container-lowest rounded-3xl p-10 shadow-sm">
 
-            <form action="{{ route('skills.store') }}" method="POST" class="space-y-8">
+            <form action="{{ route('skills.store') }}" method="POST" class="space-y-8 " enctype="multipart/form-data" >
                 @csrf
 
                 <!-- NAME -->
@@ -44,6 +44,8 @@
                     @enderror
                 </div>
 
+                
+
                 <!-- DESCRIPTION -->
                 <div>
                     <label class="block text-sm font-bold mb-2">Description</label>
@@ -55,6 +57,8 @@
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <input type="file" name="image" id="image">
 
                 <!-- TYPE (offered / wanted) -->
                 <div>

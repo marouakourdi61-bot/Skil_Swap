@@ -1,5 +1,5 @@
 <x-app-layout>
-<main class="lg:pl-72 pt-28 pb-12 px-8 min-h-screen">
+<main class=" pt-28 pb-12 px-8 min-h-screen">
     <div class="max-w-[1100px] mx-auto">
 
         <!-- SEARCH INPUT -->

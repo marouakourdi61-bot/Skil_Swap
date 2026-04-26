@@ -1,58 +1,62 @@
 @foreach($users as $user)
 
-<a href="{{ route('matches.show', $user->id) }}" class="md:col-span-1 block">
-<div class="bg-surface-container-lowest w-full max-w-5xl mx-auto rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-3 group hover:shadow-[0_20px_40px_rgba(45,22,0,0.06)] transition-all duration-500">
-   
-    
+<a href="{{ route('matches.show', $user->id) }}" class="block">
 
-    <!-- CONTENT -->
-    <div class="md:w-1/2 p-10 flex flex-col">
+    <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(45,22,0,0.06)] transition-all duration-500 border border-transparent hover:border-[#80552c]/20">
 
-        <div class="flex justify-between items-start mb-6">
+        <!-- TOP IMAGE (optional placeholder if no image) -->
+        <div class="h-40 bg-gray-100 overflow-hidden">
+            <img 
+                src="{{ $user->image ? asset('storage/' . $user->image) : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            >
+        </div>
 
+        <!-- CONTENT -->
+        <div class="p-6 flex flex-col gap-4">
+
+            <!-- NAME + CITY -->
             <div>
-                <h3 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface">
+                <h3 class="text-xl font-bold text-on-surface">
                     {{ $user->name }}
                 </h3>
 
-                <p class="font-label text-sm text-on-surface-variant flex items-center gap-1 mt-2">
+                <p class="text-sm text-on-surface-variant flex items-center gap-1 mt-1">
                     <span class="material-symbols-outlined text-sm">location_on</span>
                     {{ $user->city ?? 'Unknown' }}
                 </p>
             </div>
 
-            
+            <!-- BIO -->
+            <p class="text-sm text-on-surface-variant line-clamp-2">
+                {{ $user->bio ?? 'No description available' }}
+            </p>
 
-        </div>
+            <!-- SKILLS -->
+            <div class="flex flex-wrap gap-2">
+                @foreach($user->skills->take(3) as $skill)
+                    <span class="text-xs px-3 py-1 rounded-full bg-[#f3e5d8] text-[#80552c]">
+                        {{ $skill->name }} ({{ $skill->pivot->type }})
+                    </span>
+                @endforeach
+            </div>
 
-        <p class="font-body text-on-surface-variant mb-8 leading-relaxed">
-            {{ $user->bio ?? 'No description available' }}
-        </p>
+            <!-- ACTIONS -->
+            <div class="flex items-center justify-between mt-2">
 
-        <!-- SKILLS -->
-        <div class="flex flex-wrap gap-2 mb-auto">
-
-            @foreach($user->skills as $skill)
-                <span class="bg-surface-container-high text-on-surface px-4 py-1.5 rounded-full font-label text-[11px] font-bold uppercase tracking-wider">
-                    {{ $skill->name }} ({{ $skill->pivot->type }})
+                <span class="text-sm text-[#80552c] font-medium">
+                    View profile →
                 </span>
-            @endforeach
+
+                <button class="w-10 h-10 rounded-full border flex items-center justify-center text-[#80552c] hover:bg-[#80552c]/10">
+                    <span class="material-symbols-outlined text-sm">favorite</span>
+                </button>
+
+            </div>
 
         </div>
-
-        <!-- ACTIONS -->
-        <div class="mt-10 flex items-center gap-6">
-            <button class="bg-primary text-on-primary px-10 py-4 rounded-full font-headline font-bold text-base shadow-sm">
-                Contact
-            </button>
-
-            <button class="w-14 h-14 rounded-full border border-outline-variant/30 flex items-center justify-center text-primary">
-                <span class="material-symbols-outlined">favorite</span>
-            </button>
-        </div>
-
     </div>
-</div>
+
 </a>
 
 @endforeach

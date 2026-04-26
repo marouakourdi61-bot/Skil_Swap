@@ -35,20 +35,23 @@
         <a href="{{ route('profile.show') }}"
             class="flex items-center gap-4 text-stone-500 hover:text-[#80552c] transition-all">
             <span class="material-symbols-outlined">person</span>
-            Profile 
+            Profile
         </a>
         <a href="{{ route('exchanges.history') }}"
             class="flex items-center gap-4 text-stone-500 hover:text-[#80552c] transition-all">
             <span class="material-symbols-outlined">auto_stories</span>
-            History 
+            History
         </a>
-       
+
     </nav>
     <div class="mt-auto">
-        <a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium hover:text-error transition-all duration-300 ease-out hover:translate-x-1"
-            href="#">
-            <span class="material-symbols-outlined" data-icon="logout">logout</span>
-            <span class="font-headline text-sm tracking-tight">Logout</span>
-        </a>
+       
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+            @csrf
+            <button type="submit" class="text-red-600 hover:underline">
+                
+                Logout
+            </button>
+        </form>
     </div>
 </aside>
