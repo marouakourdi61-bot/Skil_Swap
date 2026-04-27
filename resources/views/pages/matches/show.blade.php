@@ -58,6 +58,7 @@
                                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                                  src="https://via.placeholder.com/400x300?text=Skill"
                                                  alt="{{ $skill->name }}">
+                                                 
                                         </div>
 
                                         <!-- CONTENT -->

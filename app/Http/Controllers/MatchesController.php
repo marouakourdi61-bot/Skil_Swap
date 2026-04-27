@@ -39,6 +39,7 @@ class MatchesController extends Controller
     public function show(User $user)
     {
         abort_if($user->id === auth()->id(), 404);
+        
 
         $user->load('skills');
 
