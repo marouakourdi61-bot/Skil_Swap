@@ -95,7 +95,7 @@
 <section class="space-y-12">
 
     <h2 class="text-4xl font-headline font-bold text-on-surface">
-        Curated Gallery
+         Gallery
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

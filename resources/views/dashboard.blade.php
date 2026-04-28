@@ -5,26 +5,16 @@
         <div class="flex justify-between items-end gap-10">
 
             <div class="max-w-2xl">
-                <span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">
-                    Archive Overview
-                </span>
+                
 
                 <h2 class="font-headline text-6xl font-bold tracking-tighter text-on-surface leading-[0.95] mb-6">
                     Hello,  {{ auth()->user()->name }}.
                 </h2>
 
-                <p class="font-body text-lg text-on-surface-variant leading-relaxed">
-                    Your archive is growing. You have {{ $pendingRequests }} pending exchanges
-                    and your skills are active in the community this week.
-                </p>
+            
             </div>
 
-            <div class="hidden lg:block pb-2">
-                <button
-                    class="bg-primary text-on-primary px-10 py-4 rounded-full font-headline font-bold text-sm hover:opacity-90 active:scale-95 transition-all">
-                    Proposer un échange
-                </button>
-            </div>
+            
 
         </div>
     </section>

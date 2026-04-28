@@ -3,20 +3,13 @@
     <main class="flex-1 bg-surface py-12 px-8 md:px-16 lg:px-24">
         <header class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div class="max-w-xl">
-                <p class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">Daily Digest
-                </p>
+                
                 <h1
                     class="text-6xl md:text-7xl font-headline font-extrabold tracking-tighter text-on-surface leading-none">
-                    The Chronicle</h1>
-                <p class="mt-6 text-on-surface-variant leading-relaxed text-lg font-light italic">
-                    A curated archive of your latest interactions, knowledge exchanges, and community milestones.
-                </p>
+                    Exchanges</h1>
+                
             </div>
-            <div class="flex gap-4">
-                <button
-                    class="px-6 py-2 rounded-full font-label text-xs font-bold uppercase border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container-low transition-colors">Mark
-                    all as read</button>
-            </div>
+            
         </header>
         <!-- Categorized Content -->
         <div class="grid grid-cols-1 gap-20">
@@ -157,56 +150,7 @@
                     @endforelse
                 </div>
             </section>
-            <!-- Section 3: Messages système -->
-            <section>
-                <div class="flex items-center gap-4 mb-8">
-                    <span class="w-8 h-[1px] bg-tertiary"></span>
-                    <h3 class="font-headline text-xl font-bold tracking-tight">Messages système</h3>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- System Card 1 -->
-                    <div
-                        class="bg-surface-container-low rounded-xl p-6 flex flex-col items-start gap-4 transition-colors hover:bg-surface-container-high/50">
-                        <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
-                            <span class="material-symbols-outlined"
-                                style="font-variation-settings: 'FILL' 1;">military_tech</span>
-                        </div>
-                        <div>
-                            <h5 class="font-headline font-bold text-on-surface">New Badge Earned</h5>
-                            <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">You've unlocked the
-                                <span class="font-bold">"Diligent Scholar"</span> tier for 5 consecutive successful
-                                swaps.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- System Card 2 -->
-                    <div
-                        class="bg-surface-container-low rounded-xl p-6 flex flex-col items-start gap-4 transition-colors hover:bg-surface-container-high/50">
-                        <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
-                            <span class="material-symbols-outlined"
-                                style="font-variation-settings: 'FILL' 1;">monetization_on</span>
-                        </div>
-                        <div>
-                            <h5 class="font-headline font-bold text-on-surface">Points Credited</h5>
-                            <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Your balance was
-                                updated. <span class="font-bold">+250 Archive Points</span> added to your vault.</p>
-                        </div>
-                    </div>
-                    <!-- System Card 3 -->
-                    <div
-                        class="bg-surface-container-low rounded-xl p-6 flex flex-col items-start gap-4 transition-colors hover:bg-surface-container-high/50">
-                        <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
-                            <span class="material-symbols-outlined"
-                                style="font-variation-settings: 'FILL' 1;">campaign</span>
-                        </div>
-                        <div>
-                            <h5 class="font-headline font-bold text-on-surface">Platform Update</h5>
-                            <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Version 4.2 is live. New
-                                categorization tools for your archive are now available.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            
         </div>
     </main>
 
