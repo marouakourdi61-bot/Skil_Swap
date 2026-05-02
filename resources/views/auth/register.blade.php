@@ -55,28 +55,10 @@
             <x-input-error :messages="$errors->get('email')" class="mt-1 text-xs text-red-600" />
         </div>
 
-        <!-- Role -->
+       
         <div class="space-y-1.5">
-            <x-input-label for="role" :value="__('Role')" class="text-xs font-semibold text-gray-600 uppercase tracking-widest" />
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                    </svg>
-                </div>
-                
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </div>
-            </div>
-            <!-- Role description cards -->
-            <div id="roleHint" class="hidden mt-2">
-                <div id="roleHintCard" class="flex items-start gap-3 p-3 rounded-lg border text-sm"></div>
-            </div>
-            <x-input-error :messages="$errors->get('role')" class="mt-1 text-xs text-red-600" />
-        </div>
+            
+            
 
         <!-- Password -->
         <div class="space-y-1.5">
@@ -99,10 +81,8 @@
                     </svg>
                 </button>
             </div>
-            <!-- Strength bar -->
-            <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden mt-2">
-                <div id="strengthBar" class="h-full rounded-full transition-all duration-500 w-0"></div>
-            </div>
+            <!-- bar -->
+            
             <p id="strengthLabel" class="text-xs text-gray-400 mt-1">Enter a password</p>
             <x-input-error :messages="$errors->get('password')" class="mt-1 text-xs text-red-600" />
         </div>
@@ -136,7 +116,7 @@
             </x-primary-button>
         </div>
 
-        <!-- Login link -->
+        <!-- Login -->
         @if (Route::has('login'))
             <div class="text-center pt-5 border-t border-gray-100">
                 <p class="text-sm text-gray-500">
@@ -160,37 +140,9 @@
                 : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
         }
 
-        const roleHints = {
-            admin: {
-                icon: '👑',
-                title: 'Admin',
-                desc: 'Full system access — manage users, settings, and all content.',
-                classes: 'bg-purple-50 border-purple-200 text-purple-800',
-            },
-            member: {
-                icon: '👤',
-                title: 'Member',
-                desc: 'Standard access — view and interact with your assigned boards.',
-                classes: 'bg-emerald-50 border-emerald-200 text-emerald-800',
-            },
-        };
+        
 
-        function updateRoleHint(val) {
-            const wrap = document.getElementById('roleHint');
-            const card = document.getElementById('roleHintCard');
-            if (roleHints[val]) {
-                const h = roleHints[val];
-                card.className = 'flex items-start gap-3 p-3 rounded-lg border text-sm ' + h.classes;
-                card.innerHTML = `<span class="text-lg leading-none mt-0.5">${h.icon}</span>
-                    <div>
-                        <p class="font-semibold text-xs uppercase tracking-wide mb-0.5">${h.title}</p>
-                        <p class="text-xs opacity-80">${h.desc}</p>
-                    </div>`;
-                wrap.classList.remove('hidden');
-            } else {
-                wrap.classList.add('hidden');
-            }
-        }
+        
 
         function checkStrength(pw) {
             let score = 0;
@@ -216,7 +168,7 @@
             label.className   = 'text-xs mt-1 ' + levels[lvl].color;
         }
 
-        // Re-populate on validation error
+        
         const sel = document.getElementById('role');
         if (sel.value) updateRoleHint(sel.value);
     </script>

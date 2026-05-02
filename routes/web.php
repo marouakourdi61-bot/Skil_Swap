@@ -41,13 +41,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/skills/{skill}', [SkillController::class, 'destroy'])->name('skills.destroy');
 
-
-    Route::get('/my-skills', [UserSkillController::class, 'index'])->name('user.skills.index');
-
-    Route::post('/my-skills', [UserSkillController::class, 'store'])->name('user.skills.store');
-
-    Route::delete('/my-skills/{skill}', [UserSkillController::class, 'destroy'])->name('user.skills.destroy');
-
     Route::get('/dashboard', [DashboardController::class, 'index']) 
         ->middleware(['auth', 'verified'])
         ->name('dashboard');

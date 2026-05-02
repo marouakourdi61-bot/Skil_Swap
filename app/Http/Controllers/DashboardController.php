@@ -19,7 +19,7 @@ class DashboardController extends Controller
             ->wherePivot('type', 'wanted')
             ->count();
 
-        // Pending exchanges
+        //  exchanges
         $pendingRequests = $user->sentExchanges()
             ->where('status', 'pending')
             ->count();
@@ -29,7 +29,7 @@ class DashboardController extends Controller
             ? $user->badges()->get()
             : collect();
 
-        // Recent activité
+        // Recent 
         $recentExchanges = $user->sentExchanges()
             ->latest()
             ->take(5)
